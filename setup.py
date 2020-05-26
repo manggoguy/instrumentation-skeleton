@@ -8,11 +8,11 @@ sys.path.insert(0, os.path.join(curdir, 'infra'))
 import infra
 from infra.packages import LLVM, LLVMPasses
 from infra.util import run, qjoin
-
+from infra.parsec import Parsec
 
 llvm = LLVM(version='4.0.0', compiler_rt=False, patches=['gold-plugins'])
-
-
+parsec = Parsec()
+parsec_dir = None
 class LibcallCount(infra.Instance):
     name = 'libcallcount'
 
@@ -103,6 +103,412 @@ class HelloWorld(infra.Target):
         os.chdir(self.path(ctx, instance.name))
         run(ctx, './hello', teeout=True, allow_error=True)
 
+class Blackscholes(infra.Target):
+    name='blackscholes'
+    
+    def dependencies(self):
+        yield Parsec() 
+
+    def is_fetched(self, ctx):
+        return True    
+
+    def fetch(self, ctx):
+        pass
+
+    def binary_paths(self, ctx, instance):
+        return self.path(ctx)
+    
+    def link(self, ctx, instance):
+        pass
+
+    def build(self, ctx, instance):
+        os.chdir(os.path.join(ctx.paths.root, self.name))
+        run(ctx, [
+            'make', '--always-make',
+            'OBJDIR=' + self.path(ctx, instance.name),
+            'CXX=' + ctx.cxx,
+            'CFLAGS=' + qjoin(ctx.cflags),
+            'LDFLAGS=' + qjoin(ctx.ldflags)
+        ])
+        #run(ctx, ['cp', os.path.join(ctx.paths.root, self.name, self.name), os.path.join(
+
+    def binary_paths(self, ctx, instance):
+        pass
+
+    def run(self, ctx, instance):
+        pass
+
+class Bodytrack(infra.Target):
+    name='bodytrack'
+    
+    def is_fetched(self, ctx):
+        return True    
+
+    def fetch(self, ctx):
+        pass
+
+    def binary_paths(self, ctx, instance):
+        return self.path(ctx)
+    
+    def link(self, ctx, instance):
+        pass
+
+    def build(self, ctx, instance):
+        os.chdir(os.path.join(ctx.paths.root, self.name))
+        run(ctx, [
+            'make', '--always-make',
+            'OBJDIR=' + self.path(ctx, instance.name),
+            'CC=' + ctx.cc,
+            'CFLAGS=' + qjoin(ctx.cflags),
+            'LDFLAGS=' + qjoin(ctx.ldflags)
+        ])
+
+    def binary_paths(self, ctx, instance):
+        pass
+
+    def run(self, ctx, instance):
+        pass
+
+class Canneal(infra.Target):
+    name='canneal'
+    
+    def is_fetched(self, ctx):
+        return True    
+
+    def fetch(self, ctx):
+        pass
+
+    def binary_paths(self, ctx, instance):
+        return self.path(ctx)
+    
+    def link(self, ctx, instance):
+        pass
+
+    def build(self, ctx, instance):
+        os.chdir(os.path.join(ctx.paths.root, self.name))
+        run(ctx, [
+            'make', '--always-make',
+            'OBJDIR=' + self.path(ctx, instance.name),
+            'CC=' + ctx.cc,
+            'CFLAGS=' + qjoin(ctx.cflags),
+            'LDFLAGS=' + qjoin(ctx.ldflags)
+        ])
+
+    def binary_paths(self, ctx, instance):
+        pass
+
+    def run(self, ctx, instance):
+        pass
+
+class Dedup(infra.Target):
+    name='dedup'
+    
+    def is_fetched(self, ctx):
+        return True    
+
+    def fetch(self, ctx):
+        pass
+
+    def binary_paths(self, ctx, instance):
+        return self.path(ctx)
+    
+    def link(self, ctx, instance):
+        pass
+
+    def build(self, ctx, instance):
+        os.chdir(os.path.join(ctx.paths.root, self.name))
+        run(ctx, [
+            'make', '--always-make',
+            'OBJDIR=' + self.path(ctx, instance.name),
+            'CC=' + ctx.cc,
+            'CFLAGS=' + qjoin(ctx.cflags),
+            'LDFLAGS=' + qjoin(ctx.ldflags)
+        ])
+
+    def binary_paths(self, ctx, instance):
+        pass
+
+    def run(self, ctx, instance):
+        pass
+
+class Facesim(infra.Target):
+    name='facesim'
+    
+    def is_fetched(self, ctx):
+        return True    
+
+    def fetch(self, ctx):
+        pass
+
+    def binary_paths(self, ctx, instance):
+        return self.path(ctx)
+    
+    def link(self, ctx, instance):
+        pass
+
+    def build(self, ctx, instance):
+        os.chdir(os.path.join(ctx.paths.root, self.name))
+        run(ctx, [
+            'make', '--always-make',
+            'OBJDIR=' + self.path(ctx, instance.name),
+            'CC=' + ctx.cc,
+            'CFLAGS=' + qjoin(ctx.cflags),
+            'LDFLAGS=' + qjoin(ctx.ldflags)
+        ])
+
+    def binary_paths(self, ctx, instance):
+        pass
+
+    def run(self, ctx, instance):
+        pass
+
+class Ferret(infra.Target):
+    name='ferret'
+    
+    def is_fetched(self, ctx):
+        return True    
+
+    def fetch(self, ctx):
+        pass
+
+    def binary_paths(self, ctx, instance):
+        return self.path(ctx)
+    
+    def link(self, ctx, instance):
+        pass
+
+    def build(self, ctx, instance):
+        os.chdir(os.path.join(ctx.paths.root, self.name))
+        run(ctx, [
+            'make', '--always-make',
+            'OBJDIR=' + self.path(ctx, instance.name),
+            'CC=' + ctx.cc,
+            'CFLAGS=' + qjoin(ctx.cflags),
+            'LDFLAGS=' + qjoin(ctx.ldflags)
+        ])
+
+    def binary_paths(self, ctx, instance):
+        pass
+
+    def run(self, ctx, instance):
+        pass
+
+class Fluidanimate(infra.Target):
+    name='fluidanimate'
+    
+    def is_fetched(self, ctx):
+        return True    
+
+    def fetch(self, ctx):
+        pass
+
+    def binary_paths(self, ctx, instance):
+        return self.path(ctx)
+    
+    def link(self, ctx, instance):
+        pass
+
+    def build(self, ctx, instance):
+        os.chdir(os.path.join(ctx.paths.root, self.name))
+        run(ctx, [
+            'make', '--always-make',
+            'OBJDIR=' + self.path(ctx, instance.name),
+            'CC=' + ctx.cc,
+            'CFLAGS=' + qjoin(ctx.cflags),
+            'LDFLAGS=' + qjoin(ctx.ldflags)
+        ])
+
+    def binary_paths(self, ctx, instance):
+        pass
+
+    def run(self, ctx, instance):
+        pass
+
+class Freqmine(infra.Target):
+    name='freqmine'
+    
+    def is_fetched(self, ctx):
+        return True    
+
+    def fetch(self, ctx):
+        pass
+
+    def binary_paths(self, ctx, instance):
+        return self.path(ctx)
+    
+    def link(self, ctx, instance):
+        pass
+
+    def build(self, ctx, instance):
+        os.chdir(os.path.join(ctx.paths.root, self.name))
+        run(ctx, [
+            'make', '--always-make',
+            'OBJDIR=' + self.path(ctx, instance.name),
+            'CC=' + ctx.cc,
+            'CFLAGS=' + qjoin(ctx.cflags),
+            'LDFLAGS=' + qjoin(ctx.ldflags)
+        ])
+
+    def binary_paths(self, ctx, instance):
+        pass
+
+    def run(self, ctx, instance):
+        pass
+
+class Raytrace(infra.Target):
+    name='raytrace'
+    
+    def is_fetched(self, ctx):
+        return True    
+
+    def fetch(self, ctx):
+        pass
+
+    def binary_paths(self, ctx, instance):
+        return self.path(ctx)
+    
+    def link(self, ctx, instance):
+        pass
+
+    def build(self, ctx, instance):
+        os.chdir(os.path.join(ctx.paths.root, self.name))
+        run(ctx, [
+            'make', '--always-make',
+            'OBJDIR=' + self.path(ctx, instance.name),
+            'CC=' + ctx.cc,
+            'CFLAGS=' + qjoin(ctx.cflags),
+            'LDFLAGS=' + qjoin(ctx.ldflags)
+        ])
+
+    def binary_paths(self, ctx, instance):
+        pass
+
+    def run(self, ctx, instance):
+        pass
+
+class Streamcluster(infra.Target):
+    name='streamcluster'
+    
+    def is_fetched(self, ctx):
+        return True    
+
+    def fetch(self, ctx):
+        pass
+
+    def binary_paths(self, ctx, instance):
+        return self.path(ctx)
+    
+    def link(self, ctx, instance):
+        pass
+
+    def build(self, ctx, instance):
+        os.chdir(os.path.join(ctx.paths.root, self.name))
+        run(ctx, [
+            'make', '--always-make',
+            'OBJDIR=' + self.path(ctx, instance.name),
+            'CC=' + ctx.cc,
+            'CFLAGS=' + qjoin(ctx.cflags),
+            'LDFLAGS=' + qjoin(ctx.ldflags)
+        ])
+
+    def binary_paths(self, ctx, instance):
+        pass
+
+    def run(self, ctx, instance):
+        pass
+
+class Swaptions(infra.Target):
+    name='swaptions'
+    
+    def is_fetched(self, ctx):
+        return True    
+
+    def fetch(self, ctx):
+        pass
+
+    def binary_paths(self, ctx, instance):
+        return self.path(ctx)
+    
+    def link(self, ctx, instance):
+        pass
+
+    def build(self, ctx, instance):
+        os.chdir(os.path.join(ctx.paths.root, self.name))
+        run(ctx, [
+            'make', '--always-make',
+            'OBJDIR=' + self.path(ctx, instance.name),
+            'CC=' + ctx.cc,
+            'CFLAGS=' + qjoin(ctx.cflags),
+            'LDFLAGS=' + qjoin(ctx.ldflags)
+        ])
+
+    def binary_paths(self, ctx, instance):
+        pass
+
+    def run(self, ctx, instance):
+        pass
+
+class Vips(infra.Target):
+    name='vips'
+    
+    def is_fetched(self, ctx):
+        return True    
+
+    def fetch(self, ctx):
+        pass
+
+    def binary_paths(self, ctx, instance):
+        return self.path(ctx)
+    
+    def link(self, ctx, instance):
+        pass
+
+    def build(self, ctx, instance):
+        os.chdir(os.path.join(ctx.paths.root, self.name))
+        run(ctx, [
+            'make', '--always-make',
+            'OBJDIR=' + self.path(ctx, instance.name),
+            'CC=' + ctx.cc,
+            'CFLAGS=' + qjoin(ctx.cflags),
+            'LDFLAGS=' + qjoin(ctx.ldflags)
+        ])
+
+    def binary_paths(self, ctx, instance):
+        pass
+
+    def run(self, ctx, instance):
+        pass
+
+class X264(infra.Target):
+    name='x264'
+    
+    def is_fetched(self, ctx):
+        return True    
+
+    def fetch(self, ctx):
+        pass
+
+    def binary_paths(self, ctx, instance):
+        return self.path(ctx)
+    
+    def link(self, ctx, instance):
+        pass
+
+    def build(self, ctx, instance):
+        os.chdir(os.path.join(ctx.paths.root, self.name))
+        run(ctx, [
+            'make', '--always-make',
+            'OBJDIR=' + self.path(ctx, instance.name),
+            'CC=' + ctx.cc,
+            'CFLAGS=' + qjoin(ctx.cflags),
+            'LDFLAGS=' + qjoin(ctx.ldflags)
+        ])
+
+    def binary_paths(self, ctx, instance):
+        pass
+
+    def run(self, ctx, instance):
+        pass
 
 if __name__ == '__main__':
     setup = infra.Setup(__file__)
@@ -113,6 +519,23 @@ if __name__ == '__main__':
     setup.add_instance(LibcallCount())
 
     setup.add_target(HelloWorld())
+    setup.add_target(Blackscholes())
+    setup.add_target(Freqmine())
+    setup.add_target(Ferret())
+    setup.add_target(Fluidanimate())
+    setup.add_target(Raytrace())
+    setup.add_target(Swaptions())
+    setup.add_target(Vips())
+    setup.add_target(X264())
+    setup.add_target(Bodytrack())
+    setup.add_target(Facesim())
+    setup.add_target(Streamcluster())
+    setup.add_target(Canneal())
+    setup.add_target(Dedup())
+    ctx = setup.ctx
+    parsec_dir = parsec.binary_paths(ctx)  
+    print(parsec_dir)
+
     setup.add_target(infra.targets.SPEC2006(
         source=os.path.join(curdir, 'spec2006.iso'),
         source_type='isofile',
