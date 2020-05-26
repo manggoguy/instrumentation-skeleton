@@ -1,0 +1,11 @@
+prefix=/home/mok/parsec/parsec-benchmark/bin/../pkgs/libs/mesa/inst/amd64-linux.gcc
+exec_prefix=${prefix}
+libdir=/home/mok/parsec/parsec-benchmark/bin/../pkgs/libs/mesa/inst/amd64-linux.gcc/lib
+includedir=/home/mok/parsec/parsec-benchmark/bin/../pkgs/libs/mesa/inst/amd64-linux.gcc/include
+
+Name: glw
+Description: Mesa OpenGL widget library
+Requires: gl
+Version: 1.0.0
+Libs: -L${libdir} -lGLw
+Cflags: -I${includedir}

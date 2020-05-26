@@ -1,0 +1,2 @@
+/usr/bin/ar qc libRTTL.a  CMakeFiles/RTTL.dir/BVH/BVH.cxx.o CMakeFiles/RTTL.dir/BVH/Builder/Builder.cxx.o CMakeFiles/RTTL.dir/BVH/Builder/Sweep.cxx.o CMakeFiles/RTTL.dir/BVH/Builder/BinnedAllDims.cxx.o CMakeFiles/RTTL.dir/BVH/Builder/BinnedAllDimsSaveSpace.cxx.o CMakeFiles/RTTL.dir/BVH/Builder/OnDemandBuilder.cxx.o CMakeFiles/RTTL.dir/common/RTThread.cxx.o CMakeFiles/RTTL.dir/common/MapOptions.cxx.o CMakeFiles/RTTL.dir/API/ISG.cxx.o
+/usr/bin/ranlib libRTTL.a

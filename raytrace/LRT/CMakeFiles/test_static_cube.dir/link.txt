@@ -1,0 +1,1 @@
+/home/mok/.local/bin/wllvm++    -rdynamic CMakeFiles/test_static_cube.dir/test/api_static_cube/static_cube.cxx.o  -o test_static_cube  -L/home/mok/tool/delta_v2/instrumentation-skeleton/raytrace/LRT  -L/home/mok/tool/delta_v2/instrumentation-skeleton/raytrace/RTTL libLRT.a -lOPENGL_glu_LIBRARY-NOTFOUND -lGL ../RTTL/libRTTL.a -lstdc++ -lpthread -lGLUT_glut_LIBRARY-NOTFOUND -lrt 

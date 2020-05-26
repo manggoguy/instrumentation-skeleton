@@ -1,0 +1,1 @@
+/home/mok/.local/bin/wllvm++    -rdynamic CMakeFiles/test_glut.dir/Testing/testglut.cxx.o  -o CMakeFiles/CMakeRelink.dir/test_glut -lGLUT_glut_LIBRARY-NOTFOUND -lOPENGL_glu_LIBRARY-NOTFOUND -lGL 

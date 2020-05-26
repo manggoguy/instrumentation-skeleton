@@ -1,0 +1,11 @@
+prefix=/home/mok/parsec/parsec-benchmark/bin/../pkgs/libs/mesa/inst/amd64-linux.gcc
+exec_prefix=${prefix}
+libdir=/home/mok/parsec/parsec-benchmark/bin/../pkgs/libs/mesa/inst/amd64-linux.gcc/lib
+includedir=/home/mok/parsec/parsec-benchmark/bin/../pkgs/libs/mesa/inst/amd64-linux.gcc/include
+
+Name: glut
+Description: Mesa OpenGL Utility Toolkit library
+Requires: gl glu
+Version: 3.7.1
+Libs: -L${libdir} -lglut
+Cflags: -I${includedir}

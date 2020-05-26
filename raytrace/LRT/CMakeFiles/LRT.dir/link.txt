@@ -1,0 +1,2 @@
+/usr/bin/ar qc libLRT.a  CMakeFiles/LRT.dir/Init.cxx.o CMakeFiles/LRT.dir/FrameBuffer.cxx.o CMakeFiles/LRT.dir/FrameBuffer/PBOFrameBuffer.cxx.o CMakeFiles/LRT.dir/FrameBuffer/GLTextureFB.cxx.o CMakeFiles/LRT.dir/render.cxx.o
+/usr/bin/ranlib libLRT.a

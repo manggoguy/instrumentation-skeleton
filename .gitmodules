@@ -2,3 +2,6 @@
 	path = infra
 	url = git@github.com:vusec/instrumentation-infra.git
 	branch = master
+[submodule "instrumentation-infra"]
+	path = instrumentation-infra
+	url = https://github.com/vusec/instrumentation-infra.git

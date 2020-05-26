@@ -1,0 +1,11 @@
+prefix=/home/mok/parsec/parsec-benchmark/bin/../pkgs/libs/mesa/inst/amd64-linux.gcc
+exec_prefix=${prefix}
+libdir=/home/mok/parsec/parsec-benchmark/bin/../pkgs/libs/mesa/inst/amd64-linux.gcc/lib
+includedir=/home/mok/parsec/parsec-benchmark/bin/../pkgs/libs/mesa/inst/amd64-linux.gcc/include
+
+Name: glu
+Description: Mesa OpenGL Utility library
+Requires: gl
+Version: 7.2.0
+Libs: -L${libdir} -lGLU
+Cflags: -I${includedir}

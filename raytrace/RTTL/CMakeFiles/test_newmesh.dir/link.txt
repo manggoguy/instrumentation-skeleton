@@ -1,0 +1,1 @@
+/home/mok/.local/bin/wllvm++    -rdynamic CMakeFiles/test_newmesh.dir/test/api_newmesh/newmesh.cxx.o  -o test_newmesh  -L/home/mok/tool/delta_v2/instrumentation-skeleton/raytrace/RTTL libRTTL.a -lstdc++ -lpthread -lrt 
