@@ -9,6 +9,7 @@ import infra
 from infra.packages import LLVM, LLVMPasses
 from infra.util import run, qjoin
 from infra.parsec import Parsec
+import shutil 
 
 llvm = LLVM(version='4.0.0', compiler_rt=False, patches=['gold-plugins'])
 parsec = Parsec()
@@ -38,6 +39,8 @@ class LibcallCount(infra.Instance):
         # find the dynamic library
         prevlibpath = os.getenv('LD_LIBRARY_PATH', '').split(':')
         libpath = self.runtime.path(ctx)
+        print(libpath)
+
         ctx.runenv.setdefault('LD_LIBRARY_PATH', prevlibpath).insert(0, libpath)
 
 
@@ -51,6 +54,7 @@ class LibcallCounterRuntime(infra.Package):
 
     def build(self, ctx):
         os.chdir(os.path.join(ctx.paths.root, 'runtime'))
+        print(ctx.cxxflags)
         run(ctx, [
             'make', '-j%d' % ctx.jobs,
             'OBJDIR=' + self.path(ctx),
@@ -133,10 +137,20 @@ class Blackscholes(infra.Target):
         #run(ctx, ['cp', os.path.join(ctx.paths.root, self.name, self.name), os.path.join(
 
     def binary_paths(self, ctx, instance):
-        pass
+        return os.path.join(self.path(ctx), instance.name, self.name)
 
     def run(self, ctx, instance):
-        pass
+        print(os.path.join(parsec_dir, "pkgs/apps", self.name, "inst/amd64-linux.gcc/bin", self.name))
+        if not (os.path.exists(os.path.join(parsec_dir, "pkgs/apps", self.name, "inst/"))):
+            os.mkdir(os.path.join(parsec_dir, "pkgs/apps", self.name, "inst"))
+            os.mkdir(os.path.join(parsec_dir, "pkgs/apps", self.name, "inst/amd64-linux.gcc"))
+            os.mkdir(os.path.join(parsec_dir, "pkgs/apps", self.name, "inst/amd64-linux.gcc/bin"))
+        run(ctx, ["cp", 
+        self.binary_paths(ctx, instance), 
+        os.path.join(parsec_dir, "pkgs/apps", self.name, "inst/amd64-linux.gcc/bin", self.name)
+        ])
+        run(ctx, parsec_dir+"/bin/parsecmgmt -a run -p "+ self.name + " -i native")
+        
 
 class Bodytrack(infra.Target):
     name='bodytrack'
@@ -148,7 +162,7 @@ class Bodytrack(infra.Target):
         pass
 
     def binary_paths(self, ctx, instance):
-        return self.path(ctx)
+        return os.path.join(self.path(ctx), instance.name, self.name)
     
     def link(self, ctx, instance):
         pass
@@ -163,11 +177,18 @@ class Bodytrack(infra.Target):
             'LDFLAGS=' + qjoin(ctx.ldflags)
         ])
 
-    def binary_paths(self, ctx, instance):
-        pass
 
     def run(self, ctx, instance):
-        pass
+        print(os.path.join(parsec_dir, "pkgs/apps", self.name, "inst/amd64-linux.gcc/bin", self.name))
+        if not (os.path.exists(os.path.join(parsec_dir, "pkgs/apps", self.name, "inst/"))):
+            os.mkdir(os.path.join(parsec_dir, "pkgs/apps", self.name, "inst"))
+            os.mkdir(os.path.join(parsec_dir, "pkgs/apps", self.name, "inst/amd64-linux.gcc"))
+            os.mkdir(os.path.join(parsec_dir, "pkgs/apps", self.name, "inst/amd64-linux.gcc/bin"))
+        run(ctx, ["cp", 
+        self.binary_paths(ctx, instance), 
+        os.path.join(parsec_dir, "pkgs/apps", self.name, "inst/amd64-linux.gcc/bin", self.name)
+        ])
+        run(ctx, parsec_dir+"/bin/parsecmgmt -a run -p "+ self.name + " -i native")
 
 class Canneal(infra.Target):
     name='canneal'
@@ -179,7 +200,7 @@ class Canneal(infra.Target):
         pass
 
     def binary_paths(self, ctx, instance):
-        return self.path(ctx)
+        return os.path.join(self.path(ctx), instance.name, self.name)
     
     def link(self, ctx, instance):
         pass
@@ -194,11 +215,18 @@ class Canneal(infra.Target):
             'LDFLAGS=' + qjoin(ctx.ldflags)
         ])
 
-    def binary_paths(self, ctx, instance):
-        pass
 
     def run(self, ctx, instance):
-        pass
+        print(os.path.join(parsec_dir, "pkgs/apps", self.name, "inst/amd64-linux.gcc/bin", self.name))
+        if not (os.path.exists(os.path.join(parsec_dir, "pkgs/apps", self.name, "inst/"))):
+            os.mkdir(os.path.join(parsec_dir, "pkgs/apps", self.name, "inst"))
+            os.mkdir(os.path.join(parsec_dir, "pkgs/apps", self.name, "inst/amd64-linux.gcc"))
+            os.mkdir(os.path.join(parsec_dir, "pkgs/apps", self.name, "inst/amd64-linux.gcc/bin"))
+        run(ctx, ["cp", 
+        self.binary_paths(ctx, instance), 
+        os.path.join(parsec_dir, "pkgs/apps", self.name, "inst/amd64-linux.gcc/bin", self.name)
+        ])
+        run(ctx, parsec_dir+"/bin/parsecmgmt -a run -p "+ self.name + " -i native")
 
 class Dedup(infra.Target):
     name='dedup'
@@ -210,7 +238,7 @@ class Dedup(infra.Target):
         pass
 
     def binary_paths(self, ctx, instance):
-        return self.path(ctx)
+        return os.path.join(self.path(ctx), instance.name, self.name)
     
     def link(self, ctx, instance):
         pass
@@ -225,11 +253,17 @@ class Dedup(infra.Target):
             'LDFLAGS=' + qjoin(ctx.ldflags)
         ])
 
-    def binary_paths(self, ctx, instance):
-        pass
-
     def run(self, ctx, instance):
-        pass
+        print(os.path.join(parsec_dir, "pkgs/apps", self.name, "inst/amd64-linux.gcc/bin", self.name))
+        if not (os.path.exists(os.path.join(parsec_dir, "pkgs/apps", self.name, "inst/"))):
+            os.mkdir(os.path.join(parsec_dir, "pkgs/apps", self.name, "inst"))
+            os.mkdir(os.path.join(parsec_dir, "pkgs/apps", self.name, "inst/amd64-linux.gcc"))
+            os.mkdir(os.path.join(parsec_dir, "pkgs/apps", self.name, "inst/amd64-linux.gcc/bin"))
+        run(ctx, ["cp", 
+        self.binary_paths(ctx, instance), 
+        os.path.join(parsec_dir, "pkgs/apps", self.name, "inst/amd64-linux.gcc/bin", self.name)
+        ])
+        run(ctx, parsec_dir+"/bin/parsecmgmt -a run -p "+ self.name + " -i native")
 
 class Facesim(infra.Target):
     name='facesim'
@@ -241,7 +275,7 @@ class Facesim(infra.Target):
         pass
 
     def binary_paths(self, ctx, instance):
-        return self.path(ctx)
+        return os.path.join(self.path(ctx), instance.name, self.name)
     
     def link(self, ctx, instance):
         pass
@@ -256,11 +290,18 @@ class Facesim(infra.Target):
             'LDFLAGS=' + qjoin(ctx.ldflags)
         ])
 
-    def binary_paths(self, ctx, instance):
-        pass
 
     def run(self, ctx, instance):
-        pass
+        print(os.path.join(parsec_dir, "pkgs/apps", self.name, "inst/amd64-linux.gcc/bin", self.name))
+        if not (os.path.exists(os.path.join(parsec_dir, "pkgs/apps", self.name, "inst/"))):
+            os.mkdir(os.path.join(parsec_dir, "pkgs/apps", self.name, "inst"))
+            os.mkdir(os.path.join(parsec_dir, "pkgs/apps", self.name, "inst/amd64-linux.gcc"))
+            os.mkdir(os.path.join(parsec_dir, "pkgs/apps", self.name, "inst/amd64-linux.gcc/bin"))
+        run(ctx, ["cp", 
+        self.binary_paths(ctx, instance), 
+        os.path.join(parsec_dir, "pkgs/apps", self.name, "inst/amd64-linux.gcc/bin", self.name)
+        ])
+        run(ctx, parsec_dir+"/bin/parsecmgmt -a run -p "+ self.name + " -i native")
 
 class Ferret(infra.Target):
     name='ferret'
@@ -272,7 +313,7 @@ class Ferret(infra.Target):
         pass
 
     def binary_paths(self, ctx, instance):
-        return self.path(ctx)
+        return os.path.join(self.path(ctx), instance.name, self.name)
     
     def link(self, ctx, instance):
         pass
@@ -287,11 +328,17 @@ class Ferret(infra.Target):
             'LDFLAGS=' + qjoin(ctx.ldflags)
         ])
 
-    def binary_paths(self, ctx, instance):
-        pass
-
     def run(self, ctx, instance):
-        pass
+        print(os.path.join(parsec_dir, "pkgs/apps", self.name, "inst/amd64-linux.gcc/bin", self.name))
+        if not (os.path.exists(os.path.join(parsec_dir, "pkgs/apps", self.name, "inst/"))):
+            os.mkdir(os.path.join(parsec_dir, "pkgs/apps", self.name, "inst"))
+            os.mkdir(os.path.join(parsec_dir, "pkgs/apps", self.name, "inst/amd64-linux.gcc"))
+            os.mkdir(os.path.join(parsec_dir, "pkgs/apps", self.name, "inst/amd64-linux.gcc/bin"))
+        run(ctx, ["cp", 
+        self.binary_paths(ctx, instance), 
+        os.path.join(parsec_dir, "pkgs/apps", self.name, "inst/amd64-linux.gcc/bin", self.name)
+        ])
+        run(ctx, parsec_dir+"/bin/parsecmgmt -a run -p "+ self.name + " -i native")
 
 class Fluidanimate(infra.Target):
     name='fluidanimate'
@@ -303,7 +350,7 @@ class Fluidanimate(infra.Target):
         pass
 
     def binary_paths(self, ctx, instance):
-        return self.path(ctx)
+        return os.path.join(self.path(ctx), instance.name, self.name)
     
     def link(self, ctx, instance):
         pass
@@ -318,11 +365,17 @@ class Fluidanimate(infra.Target):
             'LDFLAGS=' + qjoin(ctx.ldflags)
         ])
 
-    def binary_paths(self, ctx, instance):
-        pass
-
     def run(self, ctx, instance):
-        pass
+        print(os.path.join(parsec_dir, "pkgs/apps", self.name, "inst/amd64-linux.gcc/bin", self.name))
+        if not (os.path.exists(os.path.join(parsec_dir, "pkgs/apps", self.name, "inst/"))):
+            os.mkdir(os.path.join(parsec_dir, "pkgs/apps", self.name, "inst"))
+            os.mkdir(os.path.join(parsec_dir, "pkgs/apps", self.name, "inst/amd64-linux.gcc"))
+            os.mkdir(os.path.join(parsec_dir, "pkgs/apps", self.name, "inst/amd64-linux.gcc/bin"))
+        run(ctx, ["cp", 
+        self.binary_paths(ctx, instance), 
+        os.path.join(parsec_dir, "pkgs/apps", self.name, "inst/amd64-linux.gcc/bin", self.name)
+        ])
+        run(ctx, parsec_dir+"/bin/parsecmgmt -a run -p "+ self.name + " -i native")
 
 class Freqmine(infra.Target):
     name='freqmine'
@@ -334,7 +387,8 @@ class Freqmine(infra.Target):
         pass
 
     def binary_paths(self, ctx, instance):
-        return self.path(ctx)
+        return os.path.join(self.path(ctx), instance.name, self.name)
+
     
     def link(self, ctx, instance):
         pass
@@ -349,11 +403,17 @@ class Freqmine(infra.Target):
             'LDFLAGS=' + qjoin(ctx.ldflags)
         ])
 
-    def binary_paths(self, ctx, instance):
-        pass
-
     def run(self, ctx, instance):
-        pass
+        print(os.path.join(parsec_dir, "pkgs/apps", self.name, "inst/amd64-linux.gcc/bin", self.name))
+        if not (os.path.exists(os.path.join(parsec_dir, "pkgs/apps", self.name, "inst/"))):
+            os.mkdir(os.path.join(parsec_dir, "pkgs/apps", self.name, "inst"))
+            os.mkdir(os.path.join(parsec_dir, "pkgs/apps", self.name, "inst/amd64-linux.gcc"))
+            os.mkdir(os.path.join(parsec_dir, "pkgs/apps", self.name, "inst/amd64-linux.gcc/bin"))
+        run(ctx, ["cp", 
+        self.binary_paths(ctx, instance), 
+        os.path.join(parsec_dir, "pkgs/apps", self.name, "inst/amd64-linux.gcc/bin", self.name)
+        ])
+        run(ctx, parsec_dir+"/bin/parsecmgmt -a run -p "+ self.name + " -i native")
 
 class Raytrace(infra.Target):
     name='raytrace'
@@ -365,7 +425,7 @@ class Raytrace(infra.Target):
         pass
 
     def binary_paths(self, ctx, instance):
-        return self.path(ctx)
+        return os.path.join(self.path(ctx), instance.name, self.name)
     
     def link(self, ctx, instance):
         pass
@@ -380,11 +440,17 @@ class Raytrace(infra.Target):
             'LDFLAGS=' + qjoin(ctx.ldflags)
         ])
 
-    def binary_paths(self, ctx, instance):
-        pass
-
     def run(self, ctx, instance):
-        pass
+        print(os.path.join(parsec_dir, "pkgs/apps", self.name, "inst/amd64-linux.gcc/bin", self.name))
+        if not (os.path.exists(os.path.join(parsec_dir, "pkgs/apps", self.name, "inst/"))):
+            os.mkdir(os.path.join(parsec_dir, "pkgs/apps", self.name, "inst"))
+            os.mkdir(os.path.join(parsec_dir, "pkgs/apps", self.name, "inst/amd64-linux.gcc"))
+            os.mkdir(os.path.join(parsec_dir, "pkgs/apps", self.name, "inst/amd64-linux.gcc/bin"))
+        run(ctx, ["cp", 
+        self.binary_paths(ctx, instance), 
+        os.path.join(parsec_dir, "pkgs/apps", self.name, "inst/amd64-linux.gcc/bin", self.name)
+        ])
+        run(ctx, parsec_dir+"/bin/parsecmgmt -a run -p "+ self.name + " -i native")
 
 class Streamcluster(infra.Target):
     name='streamcluster'
@@ -396,7 +462,7 @@ class Streamcluster(infra.Target):
         pass
 
     def binary_paths(self, ctx, instance):
-        return self.path(ctx)
+        return os.path.join(self.path(ctx), instance.name, self.name)
     
     def link(self, ctx, instance):
         pass
@@ -411,11 +477,17 @@ class Streamcluster(infra.Target):
             'LDFLAGS=' + qjoin(ctx.ldflags)
         ])
 
-    def binary_paths(self, ctx, instance):
-        pass
-
     def run(self, ctx, instance):
-        pass
+        print(os.path.join(parsec_dir, "pkgs/apps", self.name, "inst/amd64-linux.gcc/bin", self.name))
+        if not (os.path.exists(os.path.join(parsec_dir, "pkgs/apps", self.name, "inst/"))):
+            os.mkdir(os.path.join(parsec_dir, "pkgs/apps", self.name, "inst"))
+            os.mkdir(os.path.join(parsec_dir, "pkgs/apps", self.name, "inst/amd64-linux.gcc"))
+            os.mkdir(os.path.join(parsec_dir, "pkgs/apps", self.name, "inst/amd64-linux.gcc/bin"))
+        run(ctx, ["cp", 
+        self.binary_paths(ctx, instance), 
+        os.path.join(parsec_dir, "pkgs/apps", self.name, "inst/amd64-linux.gcc/bin", self.name)
+        ])
+        run(ctx, parsec_dir+"/bin/parsecmgmt -a run -p "+ self.name + " -i native")
 
 class Swaptions(infra.Target):
     name='swaptions'
@@ -427,7 +499,7 @@ class Swaptions(infra.Target):
         pass
 
     def binary_paths(self, ctx, instance):
-        return self.path(ctx)
+        return os.path.join(self.path(ctx), instance.name, self.name)
     
     def link(self, ctx, instance):
         pass
@@ -442,11 +514,17 @@ class Swaptions(infra.Target):
             'LDFLAGS=' + qjoin(ctx.ldflags)
         ])
 
-    def binary_paths(self, ctx, instance):
-        pass
-
     def run(self, ctx, instance):
-        pass
+        print(os.path.join(parsec_dir, "pkgs/apps", self.name, "inst/amd64-linux.gcc/bin", self.name))
+        if not (os.path.exists(os.path.join(parsec_dir, "pkgs/apps", self.name, "inst/"))):
+            os.mkdir(os.path.join(parsec_dir, "pkgs/apps", self.name, "inst"))
+            os.mkdir(os.path.join(parsec_dir, "pkgs/apps", self.name, "inst/amd64-linux.gcc"))
+            os.mkdir(os.path.join(parsec_dir, "pkgs/apps", self.name, "inst/amd64-linux.gcc/bin"))
+        run(ctx, ["cp", 
+        self.binary_paths(ctx, instance), 
+        os.path.join(parsec_dir, "pkgs/apps", self.name, "inst/amd64-linux.gcc/bin", self.name)
+        ])
+        run(ctx, parsec_dir+"/bin/parsecmgmt -a run -p "+ self.name + " -i native")
 
 class Vips(infra.Target):
     name='vips'
@@ -458,7 +536,7 @@ class Vips(infra.Target):
         pass
 
     def binary_paths(self, ctx, instance):
-        return self.path(ctx)
+        return os.path.join(self.path(ctx), instance.name, self.name)
     
     def link(self, ctx, instance):
         pass
@@ -473,11 +551,17 @@ class Vips(infra.Target):
             'LDFLAGS=' + qjoin(ctx.ldflags)
         ])
 
-    def binary_paths(self, ctx, instance):
-        pass
-
     def run(self, ctx, instance):
-        pass
+        print(os.path.join(parsec_dir, "pkgs/apps", self.name, "inst/amd64-linux.gcc/bin", self.name))
+        if not (os.path.exists(os.path.join(parsec_dir, "pkgs/apps", self.name, "inst/"))):
+            os.mkdir(os.path.join(parsec_dir, "pkgs/apps", self.name, "inst"))
+            os.mkdir(os.path.join(parsec_dir, "pkgs/apps", self.name, "inst/amd64-linux.gcc"))
+            os.mkdir(os.path.join(parsec_dir, "pkgs/apps", self.name, "inst/amd64-linux.gcc/bin"))
+        run(ctx, ["cp", 
+        self.binary_paths(ctx, instance), 
+        os.path.join(parsec_dir, "pkgs/apps", self.name, "inst/amd64-linux.gcc/bin", self.name)
+        ])
+        run(ctx, parsec_dir+"/bin/parsecmgmt -a run -p "+ self.name + " -i native")
 
 class X264(infra.Target):
     name='x264'
@@ -489,7 +573,7 @@ class X264(infra.Target):
         pass
 
     def binary_paths(self, ctx, instance):
-        return self.path(ctx)
+        return os.path.join(self.path(ctx), instance.name, self.name)
     
     def link(self, ctx, instance):
         pass
@@ -504,11 +588,17 @@ class X264(infra.Target):
             'LDFLAGS=' + qjoin(ctx.ldflags)
         ])
 
-    def binary_paths(self, ctx, instance):
-        pass
-
     def run(self, ctx, instance):
-        pass
+        print(os.path.join(parsec_dir, "pkgs/apps", self.name, "inst/amd64-linux.gcc/bin", self.name))
+        if not (os.path.exists(os.path.join(parsec_dir, "pkgs/apps", self.name, "inst/"))):
+            os.mkdir(os.path.join(parsec_dir, "pkgs/apps", self.name, "inst"))
+            os.mkdir(os.path.join(parsec_dir, "pkgs/apps", self.name, "inst/amd64-linux.gcc"))
+            os.mkdir(os.path.join(parsec_dir, "pkgs/apps", self.name, "inst/amd64-linux.gcc/bin"))
+        run(ctx, ["cp", 
+        self.binary_paths(ctx, instance), 
+        os.path.join(parsec_dir, "pkgs/apps", self.name, "inst/amd64-linux.gcc/bin", self.name)
+        ])
+        run(ctx, parsec_dir+"/bin/parsecmgmt -a run -p "+ self.name + " -i native")
 
 if __name__ == '__main__':
     setup = infra.Setup(__file__)
